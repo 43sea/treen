@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            background-color: white;
+        }
+        .in{
+            background-color: rgba(0, 0, 0, 0.192);
+            border-radius: 7px;
+            width: 50px;
+            height: 25px;
+            margin: 10px;
+            border: 0px solid black;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .in:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="Start" class="in">
+    <input type="button" value="+" class="in">
+    <input type="button" value="-" class="in">
+    <input type="button" value="Stop" class="in">
+    <script>
+        let corpo = window.document.querySelectorAll("body")
+        let c=7
+        let controla = true
+        let qu = 0
+        corpo[0].innerHTML += "<br>"
+        corpo[0].innerHTML += "<br>"
+        corpo[0].innerHTML += "<br>"
+        for(let i=0; i<=13; i++){
+            if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13){
+                if(controla){
+                    for(let i2=0; i2<c; i2++){
+                        corpo[0].innerHTML+="&nbsp;&nbsp;"
+                        controla = false
+                    }
+                }
+                for(let i3=0; i3<i; i3++){
+                    corpo[0].innerHTML+="<div>*</div>"
+                    qu+=1
+                }
+                c--;
+                corpo[0].innerHTML+="<br>"
+            }
+            controla = true
+        }
+        c=7;
+        for(let i=0; i<7; i++){
+            if(controla){
+                for(let i2=0; i2<c; i2++){
+                    corpo[0].innerHTML+="&nbsp;&nbsp;"
+                    controla = false
+                }
+            }
+            controla = true
+            corpo[0].innerHTML+="<div>*</div><br>"
+            qu+=1
+        }
+        let di = window.document.querySelectorAll("div")
+        di[0].style.color="red"
+        di[0].style.display = "inline"
+        let cor = ["red","blue","brown","black","pink","yellow","green","orange"]
+        let inn = window.document.querySelectorAll(".in")
+        for(let i=1; i<qu; i++){
+            let r = Math.round(Math.random()*5)
+            di[i].style.display = "inline"
+            
+        }
+        let btns = window.document.querySelectorAll("input")
+        btns[0].addEventListener("click", clicarStart)
+        btns[1].addEventListener("click", clicarbtns1)
+        btns[2].addEventListener("click", clicarbtns2)
+        let seg=500;
+        let tmp
+        let b = true
+        let btnContr = false
+        function clicarbtns1(){
+            if(btnContr){
+                seg=seg-100
+                if(seg<0){
+                    seg=0
+                }
+                clearInterval(tmp)
+                tmp = setInterval(mudaCor, seg)
+            }
+        }
+        function clicarbtns2(){
+            if(btnContr){
+                seg=seg+100
+                if(seg>6000){
+                    seg=5000
+                }
+                clearInterval(tmp)
+                tmp = setInterval(mudaCor, seg)
+            }
+        }
+        function mudaCor(){
+            for(let i=1; i<qu; i++){
+                let r = Math.round(Math.random()*cor.length)
+                di[i].style.color = cor[r]
+            }
+        }
+        function clicarStart(){
+            if(b){
+                mudaCor()
+                btnContr = true
+                seg=seg+100
+                clicarbtns1()
+                b=false
+            } 
+        }
+        btns[3].addEventListener("click", clicarStop)
+        function clicarStop(){
+            if(b==false){
+                clearInterval(tmp)
+                btnContr = false
+                b=true
+                parCor()
+            }
+        }
+        function parCor(){
+            for(let i=1; i<qu; i++){
+                let r = Math.round(Math.random()*cor.length)
+                di[i].style.color = "black"
+            }
+        }
+    </script>
+</body>
+</html>
